@@ -21,5 +21,11 @@ E esse irá rodar o código:
 java Server
 ~~~
 
-Faça o mesmo processo para o arquivo Client e você poderá rodar o jogo!
+Faça o mesmo processo para o arquivo Client e você poderá rodar o jogo! (Mantennha o terminal do servidor ligado e rode o jogo em uma nova aba)
+~~~
+javac Client.java
+~~~
+~~~
+java Client
+~~~
 

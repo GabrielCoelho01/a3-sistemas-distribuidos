@@ -7,6 +7,22 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            playGame();
+
+            System.out.println("Deseja jogar novamente? (s/n)");
+            String playAgain = scanner.nextLine();
+            if (!playAgain.equalsIgnoreCase("s")) {
+                break;
+            }
+        } while (true);
+
+        scanner.close();
+    }
+
+    private static void playGame() throws IOException {
         Socket socket = new Socket("localhost", 3000);
         System.out.println("Conectado ao servidor!");
         ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -67,5 +83,6 @@ public class Client {
         }
 
         socket.close();
+        scanner.nextLine(); // Consume the newline character after the number input
     }
 }
