@@ -1,4 +1,4 @@
-# a3-sistemas-distribuidos - Par ou Impar
+# A3 Sistemas Distribuidos - Par ou Impar
 Atividade a3 da matéria de sistemas distribuídos da universidade Anhembi Morumbi
  
 ## Participantes
@@ -9,19 +9,19 @@ Atividade a3 da matéria de sistemas distribuídos da universidade Anhembi Morum
 * Gabriel Coelho da Silva - 125111357310
 
 ## Como Rodar o Código
-Com o JDK intalado em sua máquina, rode os seguintes comandos para conseguir jogar:
+Com o JDK instalado em sua máquina, rode os seguintes comandos para conseguir jogar:
 
 Esse comando irá compilar o código do servidor e prepará-lo para rodar:
 ~~~
 javac Server.java
 ~~~
 
-E esse irá rodar o código:
+E esse irá iniciar o servidor:
 ~~~
 java Server
 ~~~
 
-Faça o mesmo processo para o arquivo Client e você poderá rodar o jogo! (Mantennha o terminal do servidor ligado e rode o jogo em uma nova aba)
+Faça o mesmo processo para o arquivo Client e você poderá rodar o jogo! (Mantenha o terminal do servidor ligado e rode o jogo em uma nova aba)
 ~~~
 javac Client.java
 ~~~
