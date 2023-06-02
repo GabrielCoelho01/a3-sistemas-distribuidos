@@ -7,6 +7,7 @@ Atividade a3 da matéria de sistemas distribuídos da universidade Anhembi Morum
 * Muriel Oliveira Nunes - 12523134586
 * Wellington de Almeida Silva - 12523140032
 * Gabriel Coelho da Silva - 125111357310
+* Kelvin Nascimento Muniz de Araujo - 125111261848
 
 ## Como Rodar o Código
 Com o JDK instalado em sua máquina, rode os seguintes comandos para conseguir jogar:
