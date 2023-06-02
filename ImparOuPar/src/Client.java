@@ -1,53 +1,73 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Client {
-    public static void main(String[] args) {
-        try {
-            Socket socket = new Socket("localhost", 1234);
-            System.out.println("Conectado ao servidor!");
+  private static final String HOST = "localhost";
+  private static final int PORT = 8080;
 
-            DataInputStream input = new DataInputStream(socket.getInputStream());
-            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+  public static void main(String[] args) {
+    try {
+      Socket socket = new Socket(HOST, PORT);
+      BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+      BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
 
-            Scanner scanner = new Scanner(System.in);
+      System.out.println("Conectado ao servidor.");
+      System.out.print("Digite seu nome: ");
+      String playerName = consoleInput.readLine();
+      output.println(playerName);
 
-            System.out.println("Escolha o modo de jogo:");
-            System.out.println("1 - Jogador vs Jogador");
-            System.out.println("2 - Jogador vs Máquina");
-            int mode = scanner.nextInt();
+      System.out.println(input.readLine());
 
-            if (mode == 1) {
-                System.out.println("Aguardando oponente...");
-            } else {
-                System.out.println("Você está jogando contra a máquina.");
-            }
+      System.out.println("Modos de jogo:");
+      System.out.println("1 - Jogador vs Máquina");
+      System.out.println("2 - Jogador vs Jogador");
+      System.out.print("Digite o modo de jogo: ");
+      String gameMode = consoleInput.readLine();
+      output.println(gameMode);
 
-            while (true) {
-                String message = input.readUTF();
-                System.out.println(message);
+      if (gameMode.equals("1")) {
+        playAgainstMachine(input, output, consoleInput);
+      } else if (gameMode.equals("2")) {
+        playAgainstPlayer(input, output, consoleInput);
+      }
 
-                if (message.startsWith("Digite")) {
-                    int guess = scanner.nextInt();
-                    output.writeInt(guess);
-                } else if (message.startsWith("Resultado")) {
-                    String result = input.readUTF();
-                    System.out.println(result);
-                } else if (message.startsWith("Vencedor")) {
-                    String winner = input.readUTF();
-                    System.out.println(winner);
-                } else if (message.startsWith("Deseja")) {
-                    System.out.println("Digite 1 para reiniciar ou 2 para finalizar:");
-                    int choice = scanner.nextInt();
-                    output.writeInt(choice);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      socket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
+
+  private static void playAgainstMachine(BufferedReader input, PrintWriter output, BufferedReader consoleInput)
+      throws IOException {
+    System.out.println(input.readLine());
+    int playerChoice = Integer.parseInt(consoleInput.readLine());
+    output.println(playerChoice);
+
+    System.out.println(input.readLine());
+    int playerNumber = Integer.parseInt(consoleInput.readLine());
+    output.println(playerNumber);
+
+    System.out.println(input.readLine());
+  }
+
+  private static void playAgainstPlayer(BufferedReader input, PrintWriter output, BufferedReader consoleInput)
+      throws IOException {
+    System.out.println(input.readLine());
+
+    while (true) {
+      String response = input.readLine();
+      System.out.println(response);
+
+      if (response.startsWith("Resultado:")) {
+        break;
+      }
+
+      int choice = Integer.parseInt(consoleInput.readLine());
+      output.println(choice);
+    }
+  }
 }

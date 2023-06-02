@@ -1,27 +1,25 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(1234);
-            System.out.println("Aguardando conexões...");
+  private static final int PORT = 8080;
+  static int playersCount = 0;
+  static PlayerThread waitingPlayer = null;
 
-            while (true) {
-                Socket player1Socket = serverSocket.accept();
-                System.out.println("Jogador 1 conectado!");
+  public static void main(String[] args) {
+    try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+      System.out.println("Servidor iniciado. Aguardando conexões...");
 
-                Socket player2Socket = serverSocket.accept();
-                System.out.println("Jogador 2 conectado!");
+      while (true) {
+        Socket socket = serverSocket.accept();
+        System.out.println("Novo jogador conectado: " + socket);
 
-                GameThread gameThread = new GameThread(player1Socket, player2Socket);
-                gameThread.start();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PlayerThread playerThread = new PlayerThread(socket);
+        playerThread.start();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 }
